@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agnesa Zeka — Industrial Engineering</title>
+<meta name="description" content="Agnesa Zeka — Industrial Engineering student. Production systems, automation, and multi-criteria decision making.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14181d;
+    --paper:#eef1ec;
+    --paper-2:#e3e8e0;
+    --blueprint:#0e2c46;
+    --blueprint-2:#123a5c;
+    --amber:#e2831c;
+    --amber-ink:#8a4a09;
+    --steel:#4b7b98;
+    --line-on-paper: rgba(14,44,70,0.16);
+    --line-on-blue: rgba(238,241,236,0.22);
+    --maxw: 1120px;
+    --radius: 3px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk', sans-serif;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:500;
+  }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  :focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+  section{ position:relative; }
+
+  /* ---------- SVG icon sprite ---------- */
+  .icon{ width:1em; height:1em; display:inline-block; vertical-align:-0.15em; fill:none; stroke:currentColor; stroke-width:1.6; }
+
+  /* ---------- Reveal-on-scroll (progressive enhancement: visible by default,
+     only hidden-then-revealed once JS confirms it's running) ---------- */
+  .reveal{ opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease; }
+  .js-ready .reveal{ opacity:0; transform:translateY(14px); }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  /* =====================================================
+     TOP FLOW NAV
+  ===================================================== */
+  .flownav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,44,70,0.96);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line-on-blue);
+  }
+  .flownav .wrap{
+    display:flex; align-items:center; gap:20px;
+    height:56px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .flownav .wrap::-webkit-scrollbar{ display:none; }
+  .flownav .mark{
+    color:var(--paper); font-weight:700; font-size:14.5px; white-space:nowrap;
+    letter-spacing:0.02em;
+  }
+  .flownav .mark span{ color:var(--amber); }
+  .flowlist{ display:flex; align-items:center; list-style:none; margin:0; padding:0; gap:2px; flex:1; min-width:0; }
+  .flowlist li{ display:flex; align-items:center; white-space:nowrap; }
+  .flowlist a{
+    display:flex; align-items:center; gap:7px;
+    text-decoration:none;
+    color:rgba(238,241,236,0.62);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    padding:8px 10px;
+    border-radius:2px;
+    transition:color .2s ease;
+  }
+  .flowlist a:hover, .flowlist a.active{ color:var(--paper); }
+  .flowlist a .icon{ width:13px; height:13px; color:var(--amber); flex:0 0 auto; }
+  .flowlist .connector{
+    width:16px; height:1px; background:var(--line-on-blue); flex:0 0 auto;
+  }
+
+  /* =====================================================
+     HERO
+  ===================================================== */
+  .hero{
+    background:
+      radial-gradient(1100px 480px at 82% -10%, rgba(226,131,28,0.14), transparent 60%),
+      var(--blueprint);
+    color:var(--paper);
+    padding:76px 0 0;
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:absolute; inset:0; pointer-events:none;
+    background-image:
+      linear-gradient(var(--line-on-blue) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-on-blue) 1px, transparent 1px);
+    background-size:42px 42px;
+    -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,0.5), transparent 85%);
+            mask-image:linear-gradient(180deg, rgba(0,0,0,0.5), transparent 85%);
+  }
+  .hero-inner{ position:relative; }
+  .hero .eyebrow{ color:var(--amber); opacity:0; animation:fadeUp .7s ease forwards; }
+  .hero h1{
+    color:var(--paper);
+    font-size:clamp(42px, 8vw, 84px);
+    line-height:0.98;
+    font-weight:700;
+    margin:16px 0 0;
+    opacity:0; animation:fadeUp .7s ease .08s forwards;
+  }
+  .hero .tagline{
+    max-width:640px;
+    margin:22px 0 0;
+    font-size:19px;
+    color:rgba(238,241,236,0.86);
+    font-style:italic;
+    opacity:0; animation:fadeUp .7s ease .16s forwards;
+  }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+
+  /* Title block */
+  .titleblock{
+    margin:44px 0 0;
+    border:1px solid var(--line-on-blue);
+    border-bottom:none;
+    background:var(--blueprint-2);
+    opacity:0; animation:fadeUp .7s ease .26s forwards;
+  }
+  .tb-row{ display:grid; grid-template-columns:repeat(3, 1fr); border-bottom:1px solid var(--line-on-blue); }
+  .tb-cell{ padding:14px 18px; border-right:1px solid var(--line-on-blue); }
+  .tb-cell:last-child{ border-right:none; }
+  .tb-cell .tb-k{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:5px; }
+  .tb-cell .tb-v{ font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--paper); line-height:1.45; }
+  @media (max-width:720px){
+    .tb-row{ grid-template-columns:1fr; }
+    .tb-cell{ border-right:none; border-bottom:1px solid var(--line-on-blue); }
+  }
+
+  /* =====================================================
+     SECTION HEADERS
+  ===================================================== */
+  .section-pad{ padding:88px 0; }
+  .section-pad.tight{ padding:72px 0; }
+  .sec-head{ margin-bottom:44px; }
+  .sec-head .eyebrow{ color:var(--amber-ink); display:flex; align-items:center; gap:9px; }
+  .sec-head .eyebrow .icon{ width:14px; height:14px; }
+  .sec-head h2{ font-size:clamp(28px, 4vw, 40px); margin-top:10px; }
+  .sec-head .sub{ margin-top:10px; max-width:620px; color:#3c4650; font-size:16px; }
+
+  .on-blue .sec-head .eyebrow{ color:var(--amber); }
+  .on-blue .sec-head .sub{ color:rgba(238,241,236,0.75); }
+
+  /* =====================================================
+     ABOUT
+  ===================================================== */
+  .about-grid{ display:grid; grid-template-columns:1.3fr 0.9fr; gap:56px; align-items:start; }
+  @media (max-width:820px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-grid p{ font-size:17.5px; color:#232a31; }
+  .about-grid p + p{ margin-top:14px; }
+
+  .specsheet{ border:1px solid var(--line-on-paper); background:#fff; }
+  .specsheet .row{ display:flex; justify-content:space-between; gap:16px; padding:13px 16px; border-bottom:1px solid var(--line-on-paper); font-family:'JetBrains Mono', monospace; font-size:12.5px; }
+  .specsheet .row:last-child{ border-bottom:none; }
+  .specsheet .row .k{ color:#5a6570; letter-spacing:0.04em; text-transform:uppercase; font-size:11px; }
+  .specsheet .row .v{ text-align:right; color:var(--ink); }
+  .specsheet .head{ background:var(--blueprint); color:var(--paper); padding:11px 16px; font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; }
+
+  /* =====================================================
+     SKILLS
+  ===================================================== */
+  .skills-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line-on-paper); border:1px solid var(--line-on-paper); }
+  @media (max-width:900px){ .skills-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .skills-grid{ grid-template-columns:1fr; } }
+  .skill-cat{ background:var(--paper); padding:26px 24px; }
+  .skill-cat .cat-head{ display:flex; align-items:center; gap:9px; margin-bottom:14px; }
+  .skill-cat .cat-head .icon{ width:16px; height:16px; color:var(--amber-ink); }
+  .skill-cat .cat-head h3{ font-size:15px; font-weight:600; letter-spacing:0.01em; }
+  .skill-cat ul{ list-style:none; margin:0; padding:0; }
+  .skill-cat li{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:#3c4650; padding:4px 0; }
+  .skill-cat li::before{ content:"· "; color:var(--steel); }
+
+  /* =====================================================
+     PROJECTS
+  ===================================================== */
+  .flagship{
+    border:1px solid var(--line-on-paper);
+    background:#fff;
+    margin-bottom:2px;
+  }
+  .flagship-head{
+    display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:18px;
+    padding:28px 28px 24px; border-bottom:1px solid var(--line-on-paper);
+    background:linear-gradient(180deg, rgba(75,123,152,0.06), transparent);
+  }
+  .flagship-head h3{ font-size:24px; }
+  .flagship-head .role{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--steel); margin-top:6px; letter-spacing:0.03em; }
+  .status-pill{
+    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--steel); background:#eef3f5; border:1px solid rgba(75,123,152,0.35);
+    padding:5px 10px; border-radius:20px; white-space:nowrap;
+    display:flex; align-items:center; gap:6px;
+  }
+  .status-pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--steel); }
+  .flagship-body{ padding:24px 28px 6px; color:#232a31; font-size:16px; }
+  .flagship-body p{ margin:0; }
+
+  .subproject-grid{ display:grid; grid-template-columns:repeat(2, 1fr); }
+  @media (max-width:720px){ .subproject-grid{ grid-template-columns:1fr; } }
+  .subproject{
+    padding:22px 28px; border-top:1px solid var(--line-on-paper);
+  }
+  .subproject:nth-child(odd){ border-right:1px solid var(--line-on-paper); }
+  @media (max-width:720px){ .subproject:nth-child(odd){ border-right:none; } }
+  .subproject .sp-head{ display:flex; align-items:center; gap:9px; }
+  .subproject .sp-head .icon{ width:13px; height:13px; color:var(--amber-ink); flex:0 0 auto; }
+  .subproject .sp-head h4{ font-family:'Space Grotesk', sans-serif; font-size:14.5px; font-weight:600; margin:0; }
+  .subproject p{ margin:8px 0 0; font-size:14.5px; color:#414c56; }
+  .subproject .tags{ margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
+  .subproject .tags span{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--steel); border:1px solid rgba(75,123,152,0.35); padding:2px 7px; border-radius:20px; }
+
+  /* =====================================================
+     RESEARCH (dark section)
+  ===================================================== */
+  .research{ background:var(--blueprint); color:var(--paper); }
+  .research-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1px; background:var(--line-on-blue); border:1px solid var(--line-on-blue); margin-top:8px; }
+  @media (max-width:760px){ .research-grid{ grid-template-columns:1fr; } }
+  .research-card{ background:var(--blueprint-2); padding:26px 26px 24px; }
+  .research-card .rc-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+  .research-card h3{ font-size:18px; line-height:1.25; }
+  .research-card .icon.big{ width:22px; height:22px; color:var(--amber); flex:0 0 auto; }
+  .research-card p{ margin:12px 0 0; font-size:14.5px; color:rgba(238,241,236,0.78); }
+  .research-card .tags{ margin-top:14px; display:flex; flex-wrap:wrap; gap:6px; }
+  .research-card .tags span{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--amber); border:1px solid rgba(226,131,28,0.4); padding:2px 7px; border-radius:20px; }
+  .research-note{ margin-top:26px; font-family:'JetBrains Mono', monospace; font-size:12px; color:rgba(238,241,236,0.55); border-top:1px solid var(--line-on-blue); padding-top:18px; }
+  .research-note span{ color:var(--amber); }
+
+  /* =====================================================
+     EDUCATION
+  ===================================================== */
+  .edu-card{
+    border:1px solid var(--line-on-paper); background:#fff; padding:28px;
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:22px;
+  }
+  .edu-card h3{ font-size:20px; }
+  .edu-card .school{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--steel); margin-top:6px; }
+  .edu-focus{ display:flex; flex-wrap:wrap; gap:8px; max-width:360px; }
+  .edu-focus span{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.03em; background:var(--paper-2); border:1px solid var(--line-on-paper); padding:5px 10px; border-radius:2px; color:#2b333a; }
+
+  /* =====================================================
+     CONTACT / FOOTER
+  ===================================================== */
+  footer{ background:#0a2136; color:var(--paper); }
+  .contact-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:end; }
+  @media (max-width:760px){ .contact-grid{ grid-template-columns:1fr; } }
+  footer h2{ font-size:clamp(26px,4vw,38px); color:var(--paper); }
+  footer .sub{ margin-top:12px; color:rgba(238,241,236,0.7); max-width:440px; }
+  .contact-list{ list-style:none; margin:22px 0 0; padding:0; }
+  .contact-list li{ padding:12px 0; border-top:1px solid var(--line-on-blue); display:flex; justify-content:space-between; gap:14px; align-items:center; font-family:'JetBrains Mono', monospace; font-size:13px; }
+  .contact-list li:last-child{ border-bottom:1px solid var(--line-on-blue); }
+  .contact-list .k{ color:var(--amber); letter-spacing:0.08em; text-transform:uppercase; font-size:11px; }
+  .contact-list a{ text-decoration:none; color:var(--paper); }
+  .contact-list a:hover{ color:var(--amber); }
+  .langs{ font-family:'JetBrains Mono', monospace; font-size:12px; color:rgba(238,241,236,0.6); }
+  .langs b{ color:var(--paper); font-weight:500; }
+  .foot-bottom{ margin-top:56px; padding-top:20px; border-top:1px solid var(--line-on-blue); display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; font-family:'JetBrains Mono', monospace; font-size:11px; color:rgba(238,241,236,0.45); }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js-ready');</script>
+
+<!-- SVG SYMBOL SPRITE (ASME process-chart symbols) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="ico-op" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></symbol>
+    <symbol id="ico-insp" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></symbol>
+    <symbol id="ico-store" viewBox="0 0 24 24"><path d="M4 7 L20 7 L12 20 Z"/></symbol>
+    <symbol id="ico-delay" viewBox="0 0 24 24"><path d="M5 4 L5 20 L11 20 A8 8 0 0 0 11 4 Z"/></symbol>
+    <symbol id="ico-trans" viewBox="0 0 24 24"><path d="M3 12 L19 12 M13 6 L19 12 L13 18"/></symbol>
+  </defs>
+</svg>
+
+<nav class="flownav" aria-label="Section navigation">
+  <div class="wrap">
+    <span class="mark">AGNESA <span>ZEKA</span></span>
+    <ul class="flowlist" id="flowlist">
+      <li><a href="#about"><svg class="icon"><use href="#ico-op"/></svg>About</a></li>
+      <li class="connector"></li>
+      <li><a href="#skills"><svg class="icon"><use href="#ico-insp"/></svg>Skills</a></li>
+      <li class="connector"></li>
+      <li><a href="#projects"><svg class="icon"><use href="#ico-trans"/></svg>Projects</a></li>
+      <li class="connector"></li>
+      <li><a href="#research"><svg class="icon"><use href="#ico-delay"/></svg>Research</a></li>
+      <li class="connector"></li>
+      <li><a href="#education"><svg class="icon"><use href="#ico-store"/></svg>Education</a></li>
+      <li class="connector"></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Industrial Engineering · Istanbul, Türkiye</p>
+    <h1>Agnesa<br>Zeka</h1>
+    <p class="tagline">I study how factories move: the parts, the people, and the decisions that route between them. Then I build the tools that make that flow measurable.</p>
+
+    <div class="titleblock mono">
+      <div class="tb-row">
+        <div class="tb-cell"><span class="tb-k">Name</span><span class="tb-v">Agnesa Zeka</span></div>
+        <div class="tb-cell"><span class="tb-k">Discipline</span><span class="tb-v">Industrial Engineering</span></div>
+        <div class="tb-cell"><span class="tb-k">Location</span><span class="tb-v">Istanbul, Türkiye</span></div>
+      </div>
+      <div class="tb-row">
+        <div class="tb-cell"><span class="tb-k">Institution</span><span class="tb-v">Istanbul Medeniyet University</span></div>
+        <div class="tb-cell"><span class="tb-k">Status</span><span class="tb-v">Production Intern, Remora Teknoloji (Jul–Aug 2026)</span></div>
+        <div class="tb-cell"><span class="tb-k">Focus</span><span class="tb-v">Automation · HRI · MCDM</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section-pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><svg class="icon"><use href="#ico-op"/></svg>01 · About</p>
+      <h2>Where process meets decision-making.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I got into Industrial Engineering because I like watching how things actually work. Not the theory of it, the reality: why a step exists, why it takes as long as it does, what happens if you take it away. That's still what I chase, whether it's a factory floor, a robot, or a decision someone's about to make on gut feel alone.</p>
+        <p>Right now that means splitting my time between the assembly line at Remora Teknoloji, where I'm a production intern, and decision-making research back at school, using AHP, TOPSIS, VIKOR, and FAHP to see what happens when you make an intuitive call explicit instead. Different rooms, same instinct: figure out what's really driving the outcome, then make it visible.</p>
+      </div>
+      <div class="specsheet reveal">
+        <div class="head mono">Spec Sheet</div>
+        <div class="row"><span class="k">Base</span><span class="v">Istanbul, Türkiye</span></div>
+        <div class="row"><span class="k">Program</span><span class="v">Industrial Engineering</span></div>
+        <div class="row"><span class="k">Focus areas</span><span class="v">Automation, HRI, MCDM</span></div>
+        <div class="row"><span class="k">Recent role</span><span class="v">Production Intern, Remora (Jul–Aug 2026)</span></div>
+        <div class="row"><span class="k">Languages</span><span class="v">SQ/TR · EN · DE (A2)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="section-pad tight" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><svg class="icon"><use href="#ico-insp"/></svg>02 · Skills</p>
+      <h2>Toolset, by function.</h2>
+      <p class="sub">Grouped the way I actually use them, not a badge wall.</p>
+    </div>
+
+    <div class="skills-grid reveal">
+      <div class="skill-cat">
+        <div class="cat-head"><svg class="icon"><use href="#ico-op"/></svg><h3>Manufacturing &amp; IE</h3></div>
+        <ul>
+          <li>Time &amp; motion study, standard time</li>
+          <li>Process mapping / ASME flow charts</li>
+          <li>OEE &amp; production performance</li>
+          <li>Break-even &amp; cost analysis</li>
+          <li>Bill of materials (BOM)</li>
+          <li>QA / manufacturing documentation</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-head"><svg class="icon"><use href="#ico-delay"/></svg><h3>Decision Science</h3></div>
+        <ul>
+          <li>AHP / FAHP</li>
+          <li>TOPSIS</li>
+          <li>VIKOR</li>
+          <li>Multi-criteria decision making</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-head"><svg class="icon"><use href="#ico-trans"/></svg><h3>Programming &amp; Data</h3></div>
+        <ul>
+          <li>Python, R, C++, MATLAB</li>
+          <li>SQL (PostgreSQL)</li>
+          <li>JavaScript / TypeScript</li>
+          <li>Statistical analysis (ANOVA, descriptives)</li>
+          <li>Data cleaning &amp; visualization</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-head"><svg class="icon"><use href="#ico-store"/></svg><h3>Web &amp; Automation</h3></div>
+        <ul>
+          <li>Next.js, Prisma ORM</li>
+          <li>REST APIs, auth &amp; email verification</li>
+          <li>Web scraping (BeautifulSoup, Playwright)</li>
+          <li>Pandas, OpenPyXL</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-head"><svg class="icon"><use href="#ico-insp"/></svg><h3>CAD &amp; Documentation</h3></div>
+        <ul>
+          <li>SolidWorks</li>
+          <li>AutoCAD</li>
+          <li>Miro (process modeling)</li>
+          <li>Overleaf / LaTeX</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-head"><svg class="icon"><use href="#ico-op"/></svg><h3>AI / ML</h3></div>
+        <ul>
+          <li>Multi-agent reinforcement learning</li>
+          <li>PettingZoo</li>
+          <li>Stable-Baselines3</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="section-pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><svg class="icon"><use href="#ico-trans"/></svg>03 · Projects</p>
+      <h2>Remora Teknoloji: Production Internship</h2>
+      <p class="sub">Ongoing since July 2026. Hands-on production work paired with the software that supports it.</p>
+    </div>
+
+    <div class="flagship reveal">
+      <div class="flagship-head">
+        <div>
+          <h3>Neta Pro Hull Cleaning Robot, Production Floor &amp; Systems</h3>
+          <p class="role mono">Production Intern · Remora Teknoloji · Istanbul</p>
+        </div>
+        <span class="status-pill"><span class="dot"></span>Jul&ndash;Aug 2026</span>
+      </div>
+      <div class="flagship-body">
+        <p>Remora builds the Neta Pro, an autonomous robot that cleans and inspects ship hulls underwater. I joined the team in July, splitting my time between the floor and the systems behind it: timing how the line actually runs, automating the parts that used to eat someone's whole afternoon, and writing down what usually only lived in someone's head.</p>
+      </div>
+      <div class="subproject-grid">
+        <div class="subproject">
+          <div class="sp-head"><svg class="icon"><use href="#ico-delay"/></svg><h4>Time &amp; Motion Study</h4></div>
+          <p>I broke the assembly line into elements, timed each one enough times to trust the numbers, and turned it into a standard-time dataset production planning could actually use.</p>
+          <div class="tags"><span>R</span><span>Statistics</span><span>Standard Time</span></div>
+        </div>
+        <div class="subproject">
+          <div class="sp-head"><svg class="icon"><use href="#ico-op"/></svg><h4>OEE Calculator</h4></div>
+          <p>The OEE numbers were living in a half-finished spreadsheet. I built a small Python tool that does the math properly (availability, performance, quality), so the answer takes seconds, not an afternoon.</p>
+          <div class="tags"><span>Python</span><span>OEE</span></div>
+        </div>
+        <div class="subproject">
+          <div class="sp-head"><svg class="icon"><use href="#ico-trans"/></svg><h4>Procurement Price Automation</h4></div>
+          <p>Comparing supplier prices by hand was slow and easy to get wrong. I wrote a Python system that checks them automatically and reports back through a simple HTML dashboard.</p>
+          <div class="tags"><span>Python</span><span>Scraping</span><span>HTML</span></div>
+        </div>
+        <div class="subproject">
+          <div class="sp-head"><svg class="icon"><use href="#ico-insp"/></svg><h4>Company Portal</h4></div>
+          <p>Built the internal HR &amp; CRM portal: the unglamorous-but-essential plumbing of login, email verification, the stuff that just has to work.</p>
+          <div class="tags"><span>Next.js</span><span>Prisma</span><span>PostgreSQL</span></div>
+        </div>
+        <div class="subproject">
+          <div class="sp-head"><svg class="icon"><use href="#ico-store"/></svg><h4>BOM &amp; Technical Drawings</h4></div>
+          <p>Took a core Neta Pro component from 3D model to a full bill of materials and production-ready drawings in SolidWorks.</p>
+          <div class="tags"><span>SolidWorks</span><span>BOM</span></div>
+        </div>
+        <div class="subproject">
+          <div class="sp-head"><svg class="icon"><use href="#ico-delay"/></svg><h4>Cost &amp; Break-Even Analysis</h4></div>
+          <p>Built out the real cost structure behind one production process, and the break-even model that came out of it: the kind of number that actually changes a planning decision.</p>
+          <div class="tags"><span>Cost Modeling</span><span>Excel</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH ============ -->
+<section id="research" class="research section-pad on-blue">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><svg class="icon"><use href="#ico-delay"/></svg>04 · Research</p>
+      <h2>Formalizing how decisions get made.</h2>
+      <p class="sub">Where manufacturing questions turn into modeling questions.</p>
+    </div>
+
+    <div class="research-grid reveal">
+      <div class="research-card">
+        <div class="rc-top">
+          <h3>Hybrid AHP–TOPSIS–VIKOR Decision Model for Manager Selection</h3>
+          <svg class="icon big"><use href="#ico-op"/></svg>
+        </div>
+        <p>Manager-selection decisions usually come down to gut feel. I built a hybrid AHP–TOPSIS–VIKOR model to see what happens when you make the criteria explicit instead, and where the three ranking methods agree, and where they quietly don't.</p>
+        <div class="tags"><span>AHP</span><span>TOPSIS</span><span>VIKOR</span><span>MCDM</span></div>
+      </div>
+      <div class="research-card">
+        <div class="rc-top">
+          <h3>Multi-Agent RL for Distributed Job-Shop Scheduling</h3>
+          <svg class="icon big"><use href="#ico-trans"/></svg>
+        </div>
+        <p>What if each machine on the shop floor scheduled itself? I explored decentralized job-shop scheduling with multi-agent reinforcement learning, where every machine is an agent learning its own dispatching policy.</p>
+        <div class="tags"><span>MARL</span><span>PettingZoo</span><span>Stable-Baselines3</span></div>
+      </div>
+    </div>
+    <p class="research-note reveal">Also explored: <span>titanium implant coating</span> characterization, as a side interest in materials engineering.</p>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section id="education" class="section-pad tight">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><svg class="icon"><use href="#ico-store"/></svg>05 · Education</p>
+      <h2>Foundation.</h2>
+    </div>
+    <div class="edu-card reveal">
+      <div>
+        <h3>B.Sc. Industrial Engineering</h3>
+        <p class="school mono">Istanbul Medeniyet University · Istanbul, Türkiye</p>
+      </div>
+      <div class="edu-focus">
+        <span>Automation</span>
+        <span>Human-Robot Interaction</span>
+        <span>Manufacturing Systems</span>
+        <span>MCDM (AHP / FAHP)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact" class="section-pad">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="eyebrow" style="color:var(--amber)">06 · Contact</p>
+        <h2>Let's talk process.</h2>
+        <p class="sub">I'm around for internships and engineering roles in production, automation, or operations research. Feel free to reach out.</p>
+        <ul class="contact-list">
+          <li><span class="k">Email</span><a href="mailto:agnesazeka26@gmail.com">agnesazeka26@gmail.com</a></li>
+          <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/agnesazeka/" target="_blank" rel="noopener">linkedin.com/in/agnesazeka</a></li>
+          <li><span class="k">Location</span><span>Istanbul, Türkiye</span></li>
+        </ul>
+      </div>
+      <div class="reveal langs">
+        <p><b>Languages</b><br>Albanian &amp; Turkish: native/bilingual<br>English: native/bilingual<br>German: elementary</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>AGNESA ZEKA · INDUSTRIAL ENGINEERING</span>
+      <span>ISTANBUL, TÜRKİYE</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(e){ e.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(e){ io.observe(e); });
+    // Safety net: if anything is still hidden after 2.5s (e.g. odd iframe sizing), reveal it.
+    setTimeout(function(){
+      els.forEach(function(e){ e.classList.add('is-visible'); });
+    }, 2500);
+  })();
+
+  // Active nav highlight
+  (function(){
+    var links = document.querySelectorAll('.flowlist a');
+    var map = {};
+    links.forEach(function(a){
+      var id = a.getAttribute('href').replace('#','');
+      var target = document.getElementById(id);
+      if(target) map[id] = a;
+    });
+    if(!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var id = entry.target.getAttribute('id');
+        if(entry.isIntersecting && map[id]){
+          links.forEach(function(l){ l.classList.remove('active'); });
+          map[id].classList.add('active');
+        }
+      });
+    }, { threshold: 0.5 });
+    Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+  })();
+</script>
+
+</body>
+</html>
